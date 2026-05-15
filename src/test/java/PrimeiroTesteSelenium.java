@@ -7,10 +7,12 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import javax.swing.plaf.TableHeaderUI;
 import java.io.FilterOutputStream;
+import java.time.Duration;
 
 public class PrimeiroTesteSelenium {
 
@@ -73,6 +75,7 @@ public class PrimeiroTesteSelenium {
         WebElement checkbox1 = driver.findElements(By.cssSelector("input[type='checkbox']")).get(0);
         WebElement checkbox2 = driver.findElements(By.cssSelector("input[type='checkbox']")).get(1);
 
+
         assertFalse(checkbox1.isSelected());
 
         assertTrue(checkbox2.isSelected());
@@ -80,6 +83,27 @@ public class PrimeiroTesteSelenium {
         checkbox1.click();
 
         assertTrue(checkbox1.isSelected());
+    }
+
+    @Test
+    void deveEsperarElementoAparecer(){
+        driver.get("https://the-internet.herokuapp.com/dynamic_loading/1");
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+
+       WebElement btnStart = driver.findElement(By.cssSelector("#start button"));
+
+       btnStart.click();
+
+
+       WebElement textoFinal = wait.until(
+               ExpectedConditions.visibilityOfElementLocated(By.id("finish"))
+       );
+
+       assertEquals("Hello World!", textoFinal.getText());
+
+
+
     }
 
 
