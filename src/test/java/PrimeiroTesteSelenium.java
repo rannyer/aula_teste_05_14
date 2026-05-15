@@ -44,6 +44,28 @@ public class PrimeiroTesteSelenium {
 
     }
 
+    @Test
+    void deveAdicionarERemoverElementos(){
+        driver.get("https://the-internet.herokuapp.com/add_remove_elements/");
+
+        WebElement buttonAdd = driver.findElement(By.cssSelector("button[onclick='addElement()']"));
+//        buttonAdd = driver.findElement(By.xpath("//button[text()='Add Element']"));
+        buttonAdd.click();
+        buttonAdd.click();
+        buttonAdd.click();
+
+        int quantidaeBototesDelete = driver.findElements(By.className("added-manually")).size();
+        assertEquals(3, quantidaeBototesDelete);
+
+        WebElement primeiroDelete = driver.findElement(By.className("added-manually"));
+        primeiroDelete.click();
+
+        int quantidadeDepoisDeRemover = driver.findElements(By.className("added-manually")).size();
+        assertEquals(2, quantidadeDepoisDeRemover);
+
+
+    }
+
 
 
 
